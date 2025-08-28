@@ -1,0 +1,26 @@
+name: SonarQube Test Scan
+
+on:
+  push:
+    branches: [ main ]  # main branch pushlarında çalışır
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Run SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=spring-petclinic \
+            -Dsonar.host.url=https://<sonarqube-host>:9000 \
+            -Dsonar.login=$SONAR_TOKEN
