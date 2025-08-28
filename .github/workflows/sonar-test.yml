@@ -2,7 +2,7 @@ name: SonarQube Test Scan
 
 on:
   push:
-    branches: [ main ]  # main branch pushlarında çalışır
+    branches: [ main ]  # main branch pushlarında çalışır.
 
 jobs:
   sonar:
